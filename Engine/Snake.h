@@ -2,6 +2,7 @@
 #include "Board.h"
 #include "Location.h"
 #include "Colors.h"
+#include "ColorManage.h"
 class Snake
 {
 public:
@@ -19,7 +20,7 @@ private:
 	class Segment
 	{
 	public:
-		void Draw(Board&);
+		void Draw(Board&, Color);
 		void Follow(const Segment&);
 		void MoveBy(const Location&);
 		void InitHead(const Location&);
@@ -27,12 +28,12 @@ private:
 		Location& GetLocation();
 	private:
 		Location loc_;
-		Color color_;
 	};
 
 	static constexpr Color HEAD_COLOR = Colors::Yellow;
 	static constexpr Color BODY_COLOR = Colors::Green;
 
+	ColorManage color_geter;
 	static constexpr int nMaxSegments = 400;
 	int length_ = 1;
 	Segment segment_[nMaxSegments];

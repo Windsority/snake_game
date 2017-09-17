@@ -18,9 +18,10 @@ void Snake::MoveBy(const Location &delta_loc)
 
 void Snake::Draw(Board &board)
 {
-	for (int i = 0; i < length_; ++i)
+	segment_[0].Draw(board, HEAD_COLOR);
+	for (int i = 1; i < length_; ++i)
 	{
-		segment_[i].Draw(board);
+		segment_[i].Draw(board, color_geter.GetColor());
 	}
 }
 
@@ -73,9 +74,9 @@ int Snake::GetLength()
 	return length_;
 }
 
-void Snake::Segment::Draw(Board &board)
-{	
-	board.DrawCell(loc_, color_);
+void Snake::Segment::Draw(Board &board, Color color)
+{
+	board.DrawCell(loc_, color);
 }
 
 void Snake::Segment::Follow(const Segment &next)
@@ -91,19 +92,11 @@ void Snake::Segment::MoveBy(const Location &delta_loc)
 void Snake::Segment::InitHead(const Location &loc)
 {
 	loc_ = loc;
-	color_ = HEAD_COLOR;
 }
 
 void Snake::Segment::InitBody(const Location &loc)
 {
-	std::random_device rd_device;
-	std::mt19937 rand(rd_device());
-	std::uniform_int_distribution<int> color_dist(0, 255);
-	Color c = { (unsigned char)color_dist(rand), 
-				(unsigned char)color_dist(rand), 
-				(unsigned char)color_dist(rand) };
 	loc_ = loc;
-	color_ = c;
 }
 
 Location& Snake::Segment::GetLocation()
