@@ -24,6 +24,10 @@
 #include "Mouse.h"
 #include "Graphics.h"
 #include "SpriteCodex.h"
+#include "Board.h"
+#include "Snake.h"
+#include "Goal.h"
+#include <random>
 
 class Game
 {
@@ -38,5 +42,14 @@ private:
 private:
 	MainWindow& wnd;
 	Graphics gfx;
-	SpriteCodex sprite_;
+	Board board_;
+	Snake snek_;
+	Location delta_loc = { 1, 0 };
+	Location prev_loc = { 1, 0 };
+	Goal goal_;
+	std::mt19937 rand_;
+	static constexpr int GAME_PERIOD = 10;
+	int time_counter_ = 0;
+	bool GameIsStart = false;
+	bool GameIsOver = false;
 };
